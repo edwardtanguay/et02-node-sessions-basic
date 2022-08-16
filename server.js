@@ -3,10 +3,11 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 
-const app = express();
-const PORT = 3024;
-
 dotenv.config();
+
+const app = express();
+console.log(process.env.PORT);
+const PORT = process.env.PORT || 3024;
 
 app.use(
 	session({
