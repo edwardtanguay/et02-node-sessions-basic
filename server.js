@@ -1,15 +1,18 @@
 import express from 'express';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 
 const app = express();
 const PORT = 3024;
+
+dotenv.config();
 
 app.use(
 	session({
 		resave: true,
 		saveUninitialized: true,
-		secret: 'tempsecret',
+		secret: process.env.SESSION_SECRET,
 	})
 );
 
@@ -55,10 +58,10 @@ app.get('/current-user', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-	req.session.destroy(err => {
+	req.session.destroy((err) => {
 		res.send('User logged out');
-	})
-})
+	});
+});
 
 app.listen(PORT, () => {
 	console.log(`listening on http://localhost:${PORT}`);
